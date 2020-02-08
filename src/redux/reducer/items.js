@@ -26,7 +26,7 @@ const itemsReducer = (state = initialState, action) => {
     case ActionTypes.GET_ITEMS_SUCCESS:
       return Object.assign({}, state, {
         items: [...state.items, ...action.payload],
-        totalItemCount: action.payload.length,
+        totalItemCount: state.items.length + action.payload.length,
         itemsApiInProgress: false,
         filters: {
           ...state.filters,

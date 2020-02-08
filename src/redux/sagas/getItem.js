@@ -6,10 +6,16 @@ export function* getItems() {
   const filters = yield select(state => state.itemsReducer.filters);
   let { search = "", sort = "", order = "", limit = 20, skip = 0 } = filters;
   let url = `list?limit=${limit}`;
-  if (search.length || sort.length || order.length || skip) {
+  if (search.length) {
     search = search.trim().toLowerCase();
+    url = `${url}&filter=${search}`;
+  }
+  if (sort.length || order.length) {
     sort = order === "desc" ? `-${sort}` : sort;
-    url = `${url}&filter=${search}&sort=${sort}&skip=${skip}`;
+    url = `${url}&sort=${sort}`;
+  }
+  if (skip) {
+    url = `${url}&skip=${skip}`;
   }
   try {
     const response = yield call(APICaller, { method: "GET", reqUrl: url });

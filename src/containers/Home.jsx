@@ -30,9 +30,10 @@ const Home = props => {
               pageStart={0}
               loadMore={loadMore}
               style={{ width: "100%" }}
-              hasMore={skip < totalItemCount ? true : false}
+              hasMore={skip <= totalItemCount ? true : false}
               loader={<div key={new Date()}>Loading...</div>}
             >
+            {console.log('skip', skip, 'totalItemCount', totalItemCount, skip < totalItemCount)}
               <MatchesList matches={items} />
             </InfiniteScroll>
           </div>

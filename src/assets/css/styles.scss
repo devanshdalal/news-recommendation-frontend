@@ -63,64 +63,32 @@ body {
 
 .Header {
   padding: 4px 10px;
-  background-color: $theme;
+  // background-color: $theme;
   display: flex;
   min-height: 64px;
-  color: $white;
+  // color: $white;
   position: sticky;
 
   z-index: 10000;
   width: 100%;
   box-shadow: 0px 2px 10px grey;
   top: 0px;
-  .search {
-    margin: 8px 0 4px;
-    width: 50%;
-    min-width: 250px;
-    border-bottom: solid 2px $white;
-    display: flex;
-    flex-direction: row;
-    &_icon {
-      margin: 5px 15px 5px 10px;
-    }
-    &_input {
-      color: $white;
-      width: 100%;
-      border-width: 0px;
-      background-color: transparent;
-      outline: none;
-      align-self: flex-end;
-      margin-bottom: 6px;
-    }
-    ::placeholder {
-      /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: $white;
-      opacity: 0.5; /* Firefox */
-      font-weight: bold;
-    }
+}
 
-    :-ms-input-placeholder {
-      /* Internet Explorer 10-11 */
-      color: $white;
-      opacity: 0.5;
-    }
+.search-bar {
+  // position:absolute;
+  // width: 50%;
+  flex: 8;
+  // float: right;
+  // right:100%;
+  // top: 0;
+  // left: 90%;
+  // color: aqua;
+  // padding: 0px 10px;
+}
 
-    ::-ms-input-placeholder {
-      /* Microsoft Edge */
-      color: $white;
-      opacity: 0.5;
-    }
-  }
-  .search-wrapper {
-    width: 100%;
-  }
-  &_icon {
-    margin: 5px 10px;
-    min-width: 14px;
-  }
-  .dropdown-link {
-    padding: 0px 10px;
-  }
+.search-bar-content {
+  width: 50%;
 }
 
 .marginPadding {
@@ -204,6 +172,7 @@ body {
   border-top: 3px solid $theme;
   display: flex;
   flex-direction: row;
+  margin: 5px 20px 5px;
   &_imageView {
     width: 25%;
     max-width: 200px;
@@ -220,6 +189,30 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  &_title {
+    font-size: 22px; 
+    word-break: break-all;
+    word-wrap: break-word;
+    padding: 5px 15px 5px;
+  }
+  &_content {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: left;
+    width: 100%;
+    padding: 0px 15px 5px;
+  }
+  &_desc {
+    flex: 1;
+    margin-left: 5px;
+  }
+  &_img {
+    max-height: 80px;
+    max-width: 20%;
+    margin-left: 3px;
   }
   .team-name {
     overflow: hidden;

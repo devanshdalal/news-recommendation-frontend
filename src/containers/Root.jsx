@@ -68,7 +68,7 @@ const Root = props => {
         <Route path="/home" exact component={Home} />
         <Route path="/item-detail" exact component={ItemDetail} />
         <Route path="/profile" exact component={Profile} />
-        <Redirect to="/login" />
+        <Redirect to="/home" />
       </Switch>
     </Layout>
   );

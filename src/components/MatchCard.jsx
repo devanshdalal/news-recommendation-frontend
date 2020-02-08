@@ -1,25 +1,47 @@
 import React from "react";
 
-function MatchCard(props) {
-  const { item, keyValue, style } = props;
-  const { description = "", url = "", title = "" } = item;
-  return (
-    <a
-      rel="noopener noreferrer"
-      href={url}
-      target="_blank"
-      key={keyValue}
-      style={style}
-      className="a-no-style"
-    >
+class MatchCard extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      urlToImage : ""
+    }
+  }
+
+  componentDidMount() {
+    const { item } = this.props;
+    // console.log('item', item)
+    if (item.urlToImage) {
+      this.setState({ urlToImage: item.urlToImage })
+    }
+  }
+  
+  render() {
+    const { description = "", url, title, content } = this.props.item
+    const { urlToImage } = this.state
+    
+    return (
+      <a
+        rel="noopener noreferrer"
+        href={url}
+        target="_blank"
+        key={this.props.keyValue}
+        style={this.props.style}
+        className="a-no-style"
+      >
       <div className="MatchCard">
         <div className="MatchCard_detail">
-          <h5>{title}</h5>
-          <div>{description}</div>
+          <div className="MatchCard_title"><strong>{title}</strong></div>
+          <div className="MatchCard_content">
+            <div className="MatchCard_desc"><em>{description.length > 10? description: content}</em></div>
+            { urlToImage ?<img className="MatchCard_img" src={urlToImage} alt="img" />: <div />}
+          </div>
         </div>
       </div>
-    </a>
-  );
+      </a>
+    );
+  }
+  
 }
 
 export default MatchCard;
