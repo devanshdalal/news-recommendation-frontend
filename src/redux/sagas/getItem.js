@@ -1,6 +1,7 @@
 import { all, call, put, takeLatest, select } from "redux-saga/effects";
 import ActionTypes from "../constants/ActionTypes";
 import APICaller from "utils/APICaller";
+import get from "lodash/get";
 
 export function* getItems() {
   const filters = yield select(state => state.itemsReducer.filters);
@@ -26,7 +27,7 @@ export function* getItems() {
   } catch (err) {
     yield put({
       type: ActionTypes.GET_ITEMS_FAILURE,
-      payload: []
+      payload: get(err, "message", "error")
     });
   }
 }

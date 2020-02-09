@@ -3,12 +3,13 @@ import ActionTypes from "../constants/ActionTypes";
 const initialState = {
   items: [],
   itemsApiInProgress: false,
+  itemsApiInError: "",
   totalItemCount: 1,
   filters: {
     search: "",
     sort: "",
     order: "",
-    limit: 20,
+    limit: 40,
     skip: 0
   }
 };
@@ -17,11 +18,13 @@ const itemsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.GET_ITEMS:
       return Object.assign({}, state, {
-        itemsApiInProgress: true
+        itemsApiInProgress: true,
+        itemsApiInError: ""
       });
     case ActionTypes.GET_ITEMS_FAILURE:
       return Object.assign({}, state, {
-        itemsApiInProgress: false
+        itemsApiInProgress: false,
+        itemsApiInError: action.payload
       });
     case ActionTypes.GET_ITEMS_SUCCESS:
       return Object.assign({}, state, {

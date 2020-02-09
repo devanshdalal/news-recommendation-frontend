@@ -137,6 +137,7 @@ body {
     justify-content: center;
   }
   &_noResult {
+    height: 100%;
     flex: 1;
     background-color: rgba(255, 255, 255, 0.4);
     align-items: center;
@@ -156,6 +157,7 @@ body {
       margin: 12px 0px;
     }
     &_container {
+      flex: 1;
       flex-wrap: wrap;
       align-items: unset;
       justify-content: flex-start;
@@ -191,7 +193,7 @@ body {
     align-items: center;
   }
   &_title {
-    font-size: 22px; 
+    font-size: 22px;
     word-break: break-all;
     word-wrap: break-word;
     padding: 5px 15px 5px;
