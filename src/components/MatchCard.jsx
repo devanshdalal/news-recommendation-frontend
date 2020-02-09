@@ -33,7 +33,7 @@ class MatchCard extends React.Component {
         <div className="MatchCard_detail">
           <div className="MatchCard_title"><strong>{title}</strong></div>
           <div className="MatchCard_content">
-            <div className="MatchCard_desc"><em>{description.length > 10? description: content}</em></div>
+            <div className="MatchCard_desc"><em>{description? description: content}</em></div>
             { urlToImage ?<img className="MatchCard_img" src={urlToImage} alt="img" />: <div />}
           </div>
         </div>

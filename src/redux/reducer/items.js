@@ -1,15 +1,14 @@
-import ActionTypes from "../constants/ActionTypes";
+import { ActionTypes, SourceType } from "../constants/ActionTypes";
 
 const initialState = {
+  source: SourceType.NEWSAPI_HEADLINES,
   items: [],
   itemsApiInProgress: false,
   itemsApiInError: "",
   totalItemCount: 1,
   filters: {
     search: "",
-    sort: "",
-    order: "",
-    limit: 40,
+    limit: 30,
     skip: 0
   }
 };
@@ -40,6 +39,8 @@ const itemsReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         items: []
       });
+    case ActionTypes.RESET_STORE:
+      return {...initialState, ...action.payload}
     case ActionTypes.ITEMS_FILTER_CHANGE: {
       return Object.assign({}, state, {
         filters: { ...state.filters, ...action.payload }

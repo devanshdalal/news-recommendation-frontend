@@ -1,8 +1,16 @@
-import ActionTypes from "../constants/ActionTypes";
+import { ActionTypes } from "../constants/ActionTypes";
 
-export const getItems = () => {
+export const getItems = (sourceType) => {
   return {
-    type: ActionTypes.GET_ITEMS
+    type: ActionTypes.GET_ITEMS,
+    payload: sourceType
+  };
+};
+
+export const resetStore = (payload) => {
+  return {
+    type: ActionTypes.RESET_STORE,
+    payload
   };
 };
 

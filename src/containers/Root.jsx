@@ -12,6 +12,8 @@ import SignUp from "./SignUp";
 import ItemDetail from "./ItemDetail";
 import Profile from "./Profile";
 
+import { SourceType } from "../redux/constants/ActionTypes";
+
 // import APICaller from "utils/APICaller";
 // import { updateLoadingAction } from "redux/actions/loading";
 // import { saveUser, logout } from "redux/actions/user";
@@ -64,8 +66,7 @@ const Root = props => {
       <Switch>
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={SignUp} />
-
-        <Route path="/home" exact component={Home} />
+        <Route path="/home" exact render={() => <Home source={SourceType.NEWSAPI_HEADLINES} />} />
         <Route path="/item-detail" exact component={ItemDetail} />
         <Route path="/profile" exact component={Profile} />
         <Redirect to="/home" />

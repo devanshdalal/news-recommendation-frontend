@@ -1,25 +1,36 @@
 import { all, call, put, takeLatest, select } from "redux-saga/effects";
-import ActionTypes from "../constants/ActionTypes";
+import { ActionTypes, SourceType } from "../constants/ActionTypes";
 import APICaller from "utils/APICaller";
 import get from "lodash/get";
 
-export function* getItems() {
+export function* getItems(source) {
   const filters = yield select(state => state.itemsReducer.filters);
-  let { search = "", sort = "", order = "", limit = 20, skip = 0 } = filters;
-  let url = `list?limit=${limit}`;
+  let { search = "", limit = 50, skip = 0 } = filters;
   if (search.length) {
     search = search.trim().toLowerCase();
-    url = `${url}&filter=${search}`;
   }
-  if (sort.length || order.length) {
-    sort = order === "desc" ? `-${sort}` : sort;
-    url = `${url}&sort=${sort}`;
-  }
-  if (skip) {
-    url = `${url}&skip=${skip}`;
+  let urlOpts = "";
+  switch(source) {
+    case SourceType.NEWSAPI_SEARCH:
+      urlOpts = `q=${search}`;
+    case SourceType.NEWSAPI_HEADLINES:
+      let pageIndex = 1;
+      if (skip) {
+        pageIndex = 1 + parseInt(skip / limit)
+      }
+      urlOpts = `${urlOpts}&page=${pageIndex}&pageSize=${limit}&language=en`;
+      break;
+    case SourceType.RECOMMENDATIONS:
+      urlOpts = `limit=${limit}`
+      if (skip) {
+        urlOpts = `${urlOpts}&skip=${skip}`;
+      }
+      break;
+    default:
+      break
   }
   try {
-    const response = yield call(APICaller, { method: "GET", reqUrl: url });
+    const response = yield call(APICaller, { method: "GET", source, reqOpts: urlOpts });
     yield put({
       type: ActionTypes.GET_ITEMS_SUCCESS,
       payload: response.data
@@ -33,5 +44,5 @@ export function* getItems() {
 }
 
 export default function* root() {
-  yield all([takeLatest(ActionTypes.GET_ITEMS, getItems)]);
+  yield all([takeLatest(ActionTypes.GET_ITEMS, (action) => getItems(action.payload))]);
 }

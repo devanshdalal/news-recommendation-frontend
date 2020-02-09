@@ -21,6 +21,8 @@ import { InputGroup, InputGroupAddon, Button, Input } from 'reactstrap';
 import getImage from "utils/images";
 // import { getItems, itemsFilterChange, clearItems } from "redux/actions/getItem";
 import { logout } from "redux/actions/user";
+import { getItems, clearItems, itemsFilterChange, resetStore } from "redux/actions/getItem";
+import { SourceType } from "redux/constants/ActionTypes";
 // import { Component } from "../../../../../../Library/Caches/typescript/2.6/node_modules/@types/react";
 // @ts-ignore
 // import colors from "assets/css/colors.scss";
@@ -34,7 +36,15 @@ class Header extends React.Component {
   }
 
   adocSearch = () => {
-    console.log('adhocSearch', this.state.query)
+    // this.props.dispatch(itemsFilterChange({search: this.state.query, skip: 0}))
+    // this.props.dispatch(clearItems())
+    // this.props.dispatch(getItems(SourceType.NEWSAPI_SEARCH))
+    this.props.dispatch(resetStore({source: SourceType.NEWSAPI_SEARCH}))
+    this.props.dispatch(itemsFilterChange({search: this.state.query, skip: 0}))
+  }
+
+  resetHome = () => {
+    this.props.dispatch(resetStore({}));
   }
 
   reacordQuery = (query) => {
@@ -43,7 +53,7 @@ class Header extends React.Component {
   render() {
     return (
       <Navbar bg="dark" expand="md">
-        <Navbar.Brand href="/#home">
+        <Navbar.Brand href="/#home" onClick={() => console.log('home--')}>
           <img
             src={getImage("logo")}
             alt="logo"
@@ -61,7 +71,9 @@ class Header extends React.Component {
           </InputGroup>
         </Nav>
         <NavDropdown title="Me" alignRight>
-            <NavDropdown.Item href="/#profile">Profile</NavDropdown.Item>
+            <NavDropdown.Item href="#recommendation">Recommendation</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="#recommendation">Preferences</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item href="/#login">Log out</NavDropdown.Item>
         </NavDropdown>
@@ -74,8 +86,7 @@ class Header extends React.Component {
 };
 const mapStateToProps = state => {
   return {
-    filters: state.itemsReducer.filters,
-    favourite_team: state.userReducer.favourite_team
+    filters: state.itemsReducer.filters
   };
 };
 
