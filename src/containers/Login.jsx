@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 import get from "lodash/get";
 
 import { isEmptyString } from "utils/validators";
-import APICaller from "utils/APICaller";
+import API from "utils/API";
 import { updateLoadingAction } from "redux/actions/loading";
 import { saveUser } from "redux/actions/user";
 
@@ -44,12 +44,13 @@ function Login(props) {
       };
       // this.props.onSubmit(formData);
       props.dispatch(updateLoadingAction(true));
-      APICaller({
+      API({
         method: "POST",
         reqUrl: "auth/signin",
         data: formData
       })
         .then(res => {
+          console.log('res', res)
           delete res.data._id;
           localStorage.setItem("user", JSON.stringify(res.data));
           props.dispatch(saveUser(res.data));

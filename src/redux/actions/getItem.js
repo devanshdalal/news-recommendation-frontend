@@ -7,10 +7,9 @@ export const getItems = (sourceType) => {
   };
 };
 
-export const resetStore = (payload) => {
+export const resetStore = () => {
   return {
     type: ActionTypes.RESET_STORE,
-    payload
   };
 };
 

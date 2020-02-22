@@ -3,8 +3,17 @@ import { AutoSizer, WindowScroller, List } from "react-virtualized";
 
 import MatchCard from "./MatchCard";
 
-const MatchesList = props => {
-  const { matches } = props;
+class MatchesList extends React.Component {
+  constructor(props) {
+    super(props)
+    const likes = localStorage.getItem("likes");
+    this.state = {
+      ids: likes? JSON.parse(likes): []
+    }
+  }
+
+  render() {
+    const { matches } = this.props;
   return (
     <div className="MatchesList">
       <div className="app-container">
@@ -39,6 +48,7 @@ const MatchesList = props => {
                       }) => {
                         return (
                           <MatchCard
+                            ids={this.state.ids}
                             item={matches[index]}
                             keyValue={key}
                             {...{
@@ -61,6 +71,7 @@ const MatchesList = props => {
       </div>
     </div>
   );
+  }
 };
 
 export default MatchesList;

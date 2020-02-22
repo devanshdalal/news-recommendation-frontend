@@ -1,7 +1,5 @@
 import React from "react";
-// import React, { useEffect } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
-// import isEmpty from "lodash/isEmpty";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -9,71 +7,35 @@ import Layout from "./layouts/Layout";
 import Home from "./Home";
 import Login from "./Login";
 import SignUp from "./SignUp";
-import ItemDetail from "./ItemDetail";
-import Profile from "./Profile";
+import AuthorizedRoute from "./AuthorizedRoute";
 
 import { SourceType } from "../redux/constants/ActionTypes";
 
-// import APICaller from "utils/APICaller";
-// import { updateLoadingAction } from "redux/actions/loading";
-// import { saveUser, logout } from "redux/actions/user";
-// import { routeMainStack } from "utils/common";
-
 const Root = props => {
-  // const {
-  //   history,
-  //   dispatch,
-  //   location: { pathname }
-  // } = props;
-  // useEffect(() => {
-  //   const user = JSON.parse(localStorage.getItem("user"));
-  //   if (!isEmpty(user)) {
-  //     dispatch(saveUser(user));
-  //     dispatch(updateLoadingAction(true));
-  //     APICaller({
-  //       method: "GET",
-  //       reqUrl: "users/isloggedin"
-  //     })
-  //       .then(res => {
-  //         delete res.data._id;
-  //         dispatch(saveUser(res.data));
-  //         if (res.data.favourite_team !== user.favourite_team) {
-  //           localStorage.setItem(
-  //             "user",
-  //             JSON.stringify({
-  //               ...user,
-  //               favourite_team: res.data.favourite_team
-  //             })
-  //           );
-  //         }
-  //         dispatch(updateLoadingAction(false));
-  //         !routeMainStack.includes(pathname) && history.push("/home");
-  //       })
-  //       .catch(err => {
-  //         dispatch(updateLoadingAction(false));
-  //         history.push("/login");
-  //         if (err.response && err.response.data === "Unauthorized") {
-  //           dispatch(logout());
-  //         }
-  //       });
-  //   } else {
-  //     history.push("/login");
-  //   }
-  //   // eslint-disable-next-line
-  // }, []);
+  // console.log('this.state', props)
   return (
     <Layout>
       <Switch>
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={SignUp} />
-        <Route path="/home" exact render={() => <Home source={SourceType.NEWSAPI_HEADLINES} />} />
-        <Route path="/item-detail" exact component={ItemDetail} />
-        <Route path="/profile" exact component={Profile} />
+        <Route path="/home" key="home" exact render={() => {
+            // console.log("loading home")
+            return <Home type={SourceType.NEWSAPI_HEADLINES} />
+          } 
+        } />
+        <Route path="/search" key="search" exact render={() => {
+            // console.log("loading search")
+            return <Home type={SourceType.NEWSAPI_SEARCH} />
+          }
+        }  />
+        <AuthorizedRoute path="/recommendations" key="recommendations" type={SourceType.RECOMMENDATIONS} exact component={Home} />
+        <AuthorizedRoute path="/liked" key="liked" type={SourceType.LIKED} exact component={Home} />
         <Redirect to="/home" />
       </Switch>
     </Layout>
   );
 };
+
 
 const RootWithRouter = withRouter(props => <Root {...props} />);
 export default connect()(RootWithRouter);

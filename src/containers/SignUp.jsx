@@ -16,15 +16,12 @@ import { connect } from "react-redux";
 import get from "lodash/get";
 
 import { isValidPassword, isEmptyString } from "utils/validators";
-import APICaller from "utils/APICaller";
+import API from "utils/API";
 import { updateLoadingAction } from "redux/actions/loading";
 
 function SignUp(props) {
   const [username, setUsername] = useState("");
   const [validationUsernameMsg, setValidationUsernameMsg] = useState(false);
-  // const [favourite, setFavourite] = useState("Sunrisers Hyderabad");
-  // const [email, setEmail] = useState("");
-  // const [validationEmailMsg, setValidationEmailMsg] = useState(false);
   const [password, setPassword] = useState("");
   const [validationPasswordMsg, setValidationPasswordMsg] = useState(false);
   const [validationMsg, setValidationMsg] = useState("");
@@ -47,7 +44,7 @@ function SignUp(props) {
       };
       // this.props.onSubmit(formData);
       props.dispatch(updateLoadingAction(true));
-      APICaller({
+      API({
         method: "POST",
         reqUrl: "auth/signup",
         data: formData

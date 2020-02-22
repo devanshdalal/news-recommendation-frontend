@@ -1,36 +1,54 @@
 import { all, call, put, takeLatest, select } from "redux-saga/effects";
 import { ActionTypes, SourceType } from "../constants/ActionTypes";
-import APICaller from "utils/APICaller";
+import API from "utils/API";
 import get from "lodash/get";
 
 export function* getItems(source) {
+  // console.log('getItem', source)
   const filters = yield select(state => state.itemsReducer.filters);
   let { search = "", limit = 50, skip = 0 } = filters;
   if (search.length) {
     search = search.trim().toLowerCase();
   }
-  let urlOpts = "";
+  let reqOpts = "";
+  let reqUrl = "";
+  let cached = true;
   switch(source) {
     case SourceType.NEWSAPI_SEARCH:
-      urlOpts = `q=${search}`;
+      if (search) {
+        reqOpts = `q=${search}`;
+      } else {
+        reqOpts = `domains=thehindu.com`; // default
+      }
     case SourceType.NEWSAPI_HEADLINES:
       let pageIndex = 1;
       if (skip) {
         pageIndex = 1 + parseInt(skip / limit)
       }
-      urlOpts = `${urlOpts}&page=${pageIndex}&pageSize=${limit}&language=en`;
+      reqOpts = `${reqOpts}&page=${pageIndex}&pageSize=${limit}&language=en`;
       break;
     case SourceType.RECOMMENDATIONS:
-      urlOpts = `limit=${limit}`
+      cached = false
+      reqUrl = "list"
+      reqOpts = `limit=${limit}`
       if (skip) {
-        urlOpts = `${urlOpts}&skip=${skip}`;
+        reqOpts = `${reqOpts}&skip=${skip}`;
       }
+      break;
+    case SourceType.LIKED:
+      reqUrl = "liked"
+      cached = false
       break;
     default:
       break
   }
   try {
-    const response = yield call(APICaller, { method: "GET", source, reqOpts: urlOpts });
+    const response = yield call(API, { method: "GET", source, cached, reqUrl, reqOpts });
+    if (source === SourceType.LIKED) {
+      // console.log('liked', response.data)
+      const ids = response.data.map(item => item.id)
+      localStorage.setItem('likes', JSON.stringify(ids))
+    }
     yield put({
       type: ActionTypes.GET_ITEMS_SUCCESS,
       payload: response.data
