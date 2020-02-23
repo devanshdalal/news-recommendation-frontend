@@ -43,7 +43,7 @@ class Header extends React.Component {
   }
 
   handleEnter = (event) => {
-    console.log('ev', event.key)
+    // console.log('ev', event.key)
     if (event.key === 'Enter') {
       this.adocSearch()
     }

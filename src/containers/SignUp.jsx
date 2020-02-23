@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import get from "lodash/get";
 
-import { isValidPassword, isEmptyString } from "utils/validators";
+import { isEmptyString } from "utils/validators";
 import API from "utils/API";
 import { updateLoadingAction } from "redux/actions/loading";
 
@@ -74,7 +74,7 @@ function SignUp(props) {
       hasInValidUsername = "";
     if (!touchedElem) {
       // hasInValidEmail = isValidEmail(email);
-      hasInValidPassword = isValidPassword(password);
+      hasInValidPassword = isEmptyString(password); // isValidPassword(password);
       hasInValidUsername = isEmptyString(username);
       // setValidationEmailMsg(hasInValidEmail);
       setValidationPasswordMsg(hasInValidPassword);
@@ -138,20 +138,6 @@ function SignUp(props) {
               {validationUsernameMsg ? validationUsernameMsg : ""}
             </FormFeedback>
           </FormGroup>
-          {/* <FormGroup>
-            <Label for="email">Email</Label>
-            <Input
-              invalid={validationEmailMsg ? true : false}
-              type="email"
-              onChange={handleInputChange}
-              name="email"
-              value={email}
-              placeholder="Enter email"
-            />
-            <FormFeedback>
-              {validationEmailMsg ? validationEmailMsg : ""}
-            </FormFeedback>
-          </FormGroup> */}
 
           <FormGroup>
             <Label for="password">Pasword</Label>
@@ -169,16 +155,6 @@ function SignUp(props) {
               {validationPasswordMsg ? validationPasswordMsg : ""}
             </FormFeedback>
           </FormGroup>
-          <div>
-            <div>Your password must contain:</div>
-            <ul>
-              <li>At least six characters</li>
-              <li>At least one number</li>
-              <li>At least a capital letter</li>
-              <li>At least a lower case letter</li>
-              <li>At least a special character</li>
-            </ul>
-          </div>
           <Alert color="danger" isOpen={validationMsg ? true : false}>
             {validationMsg}
           </Alert>

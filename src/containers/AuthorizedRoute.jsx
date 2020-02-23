@@ -11,7 +11,7 @@ const AuthorizedRoute = ({ component: Component, ...rest }) => {
   // Add your own authentication on the below line.
   const isLoggedIn = localStorage.getItem('user') ? true: false;
 
-  console.log('rest', rest, isLoggedIn)
+  // console.log('rest', rest, isLoggedIn)
 
   return (
     <Route
@@ -19,7 +19,7 @@ const AuthorizedRoute = ({ component: Component, ...rest }) => {
       render={props =>
         isLoggedIn ? (
           <div>
-            <div>{console.log(props, rest.type)}</div>
+            {/* <div>{console.log(props, rest.type)}</div> */}
             <Component type={rest.type} {...props} />
           </div>
         ) : (
