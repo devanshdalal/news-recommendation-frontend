@@ -12,7 +12,6 @@ import AuthorizedRoute from "./AuthorizedRoute";
 import { SourceType } from "../redux/constants/ActionTypes";
 
 const Root = props => {
-  // console.log('this.state', props)
   return (
     <Layout>
       <Switch>
