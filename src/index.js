@@ -16,7 +16,7 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <Provider store={store}>
-    <HashRouter basename={process.env.REACT_APP_PUBLIC_URL}>
+    <HashRouter>
       <App />
     </HashRouter>
   </Provider>,

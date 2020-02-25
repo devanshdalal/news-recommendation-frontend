@@ -73,12 +73,27 @@ body {
   top: 0px;
 }
 
-.search-bar {
+.nav-bar {
+  // display: flex;
   flex: 8;
+  // flex-direction: flex-end;
+  justify-content: flex-end;
+}
+
+.search-bar {
+  display: flex;
+  flex: 8;
+  justify-content: center;
+  // width: 80%;
 }
 
 .search-bar-content {
-  width: 50%;
+  // flex: 1;
+  width: 70%;
+}
+
+.nav-flushright {
+  // width: 15%;
 }
 
 .marginPadding {
