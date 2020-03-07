@@ -14,7 +14,7 @@ const RESTCaller = ({
   return new Promise(async (resolve, reject) => {
     let url = `${apiBaseUrl}`;
     if (reqUrl) {
-      url = `${apiBaseUrl}/${reqUrl}`
+      url = `${apiBaseUrl}/${reqUrl}`;
     }
     if (reqOpts) {
       url = `${url}?${reqOpts}`;
@@ -33,7 +33,8 @@ const RESTCaller = ({
     axios({ ...options })
       .then(response => {
         resolve(response);
-      }).catch(error => {
+      })
+      .catch(error => {
         reject(error);
       });
   });

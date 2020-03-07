@@ -50,7 +50,7 @@ function Login(props) {
         data: formData
       })
         .then(res => {
-          console.log('res', res)
+          console.log("res", res);
           delete res.data._id;
           localStorage.setItem("user", JSON.stringify(res.data));
           props.dispatch(saveUser(res.data));

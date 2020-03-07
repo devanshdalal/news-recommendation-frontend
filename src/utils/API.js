@@ -1,8 +1,8 @@
 import { SourceType } from "../redux/constants/ActionTypes";
-import RESTCaller from './restCaller.js'
-import cleaner from './cleaner'
+import RESTCaller from "./restCaller.js";
+import cleaner from "./cleaner";
 
-import lscache from 'lscache'
+import lscache from "lscache";
 
 const recommendationServer = process.env.REACT_APP_SERVER_URL;
 const newsapiHeadlinesUrl = process.env.REACT_APP_NEWSAPI_HEADLINES;
@@ -23,26 +23,26 @@ const API = ({
     Accept: "application/json"
   }
 }) => {
-
-  let apiBaseUrl = "INVALID"
+  let apiBaseUrl = "INVALID";
   if (source) {
-    switch(source) {
+    switch (source) {
       case SourceType.NEWSAPI_HEADLINES:
-        apiBaseUrl = newsapiHeadlinesUrl
-        reqOpts = `apiKey=${newsapiKey}&${reqOpts}`
+        apiBaseUrl = newsapiHeadlinesUrl;
+        reqOpts = `apiKey=${newsapiKey}&${reqOpts}`;
         break;
       case SourceType.NEWSAPI_SEARCH:
-        apiBaseUrl = newsapiBaseUrl
-        reqOpts = `apiKey=${newsapiKey}&${reqOpts}`
+        apiBaseUrl = newsapiBaseUrl;
+        reqOpts = `apiKey=${newsapiKey}&${reqOpts}`;
         break;
       case SourceType.LIKED:
       case SourceType.RECOMMENDATIONS:
         const user = localStorage.getItem("user");
         if (!user) {
-          
         }
         let { token = false } = user ? JSON.parse(user) : {};
-        headers = token ? { ...headers, Authorization: `Bearer ${token}` } : headers;
+        headers = token
+          ? { ...headers, Authorization: `Bearer ${token}` }
+          : headers;
         apiBaseUrl = recommendationServer;
         break;
       default:
@@ -53,23 +53,19 @@ const API = ({
     apiBaseUrl = recommendationServer;
   }
 
-  const url = `${apiBaseUrl}${reqUrl}${reqOpts}`
+  const url = `${apiBaseUrl}${reqUrl}${reqOpts}`;
   if (method.toLowerCase() === "get") {
     if (cached) {
-      const response = lscache.get(url)
+      const response = lscache.get(url);
       if (response) {
         return new Promise((resolve, reject) => {
           resolve(response);
-        }).catch(error => console.log(error))
+        }).catch(error => console.log(error));
       }
     }
   }
   // console.log('REST url: ', url, 'apiBaseUrl', apiBaseUrl, 'reqUrl', reqUrl, 'reqOpts', reqOpts)
-  let args = { method,
-    apiBaseUrl,
-    data,
-    headers
-  };
+  let args = { method, apiBaseUrl, data, headers };
   if (reqUrl) {
     args.reqUrl = reqUrl;
   }
@@ -77,24 +73,22 @@ const API = ({
     args.reqOpts = reqOpts;
   }
   // console.log('args', args)
-  return RESTCaller(args).then(
-    response => {
-      // console.log("%c{res}", "color: green", " => ", response); // eslint-disable-line no-console
-      switch(source) {
-        case SourceType.NEWSAPI_HEADLINES:
-        case SourceType.NEWSAPI_SEARCH:
-          response.data = cleaner(response.data.articles)
-        case SourceType.RECOMMENDATIONS:
-          break;
-        default:
-          break;
-      }
-      lscache.set(url, response, LSCACHE_TIMEOUT)
-      return new Promise((resolve, reject) => {
-        resolve(response);
-      }).catch( error => console.log(error))
+  return RESTCaller(args).then(response => {
+    // console.log("%c{res}", "color: green", " => ", response); // eslint-disable-line no-console
+    switch (source) {
+      case SourceType.NEWSAPI_HEADLINES:
+      case SourceType.NEWSAPI_SEARCH:
+        response.data = cleaner(response.data.articles);
+      case SourceType.RECOMMENDATIONS:
+        break;
+      default:
+        break;
     }
-  )
-}
+    lscache.set(url, response, LSCACHE_TIMEOUT);
+    return new Promise((resolve, reject) => {
+      resolve(response);
+    }).catch(error => console.log(error));
+  });
+};
 
 export default API;

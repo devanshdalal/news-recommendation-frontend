@@ -14,7 +14,7 @@ export const SourceType = {
   NEWSAPI_SEARCH: "NEWSAPI_SEARCH",
   NEWSAPI_HEADLINES: "NEWSAPI_HEADLINES",
   RECOMMENDATIONS: "RECOMMENDATIONS",
-  LIKED: "LIKED",
-}
+  LIKED: "LIKED"
+};
 
 // export default ActionTypes;

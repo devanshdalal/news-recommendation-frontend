@@ -3,13 +3,12 @@
 
 // If they are: they proceed to the page
 // If not: they are redirected to the login page.
-import React from 'react'
-import { Redirect, Route } from 'react-router-dom'
+import React from "react";
+import { Redirect, Route } from "react-router-dom";
 
 const AuthorizedRoute = ({ component: Component, ...rest }) => {
-
   // Add your own authentication on the below line.
-  const isLoggedIn = localStorage.getItem('user') ? true: false;
+  const isLoggedIn = localStorage.getItem("user") ? true : false;
 
   // console.log('rest', rest, isLoggedIn)
 
@@ -23,11 +22,11 @@ const AuthorizedRoute = ({ component: Component, ...rest }) => {
             <Component type={rest.type} {...props} />
           </div>
         ) : (
-          <Redirect to={{ pathname: '/login' }} />
+          <Redirect to={{ pathname: "/login" }} />
         )
       }
     />
-  )
-}
+  );
+};
 
 export default AuthorizedRoute;

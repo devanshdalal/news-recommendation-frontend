@@ -13,7 +13,7 @@ export function* getItems(source) {
   let reqOpts = "";
   let reqUrl = "";
   let cached = true;
-  switch(source) {
+  switch (source) {
     case SourceType.NEWSAPI_SEARCH:
       if (search) {
         reqOpts = `q=${search}`;
@@ -23,31 +23,37 @@ export function* getItems(source) {
     case SourceType.NEWSAPI_HEADLINES:
       let pageIndex = 1;
       if (skip) {
-        pageIndex = 1 + parseInt(skip / limit)
+        pageIndex = 1 + parseInt(skip / limit);
       }
       reqOpts = `${reqOpts}&page=${pageIndex}&pageSize=${limit}&language=en`;
       break;
     case SourceType.RECOMMENDATIONS:
-      cached = false
-      reqUrl = "list"
-      reqOpts = `limit=${limit}`
+      cached = false;
+      reqUrl = "list";
+      reqOpts = `limit=${limit}`;
       if (skip) {
         reqOpts = `${reqOpts}&skip=${skip}`;
       }
       break;
     case SourceType.LIKED:
-      reqUrl = "liked"
-      cached = false
+      reqUrl = "liked";
+      cached = false;
       break;
     default:
-      break
+      break;
   }
   try {
-    const response = yield call(API, { method: "GET", source, cached, reqUrl, reqOpts });
+    const response = yield call(API, {
+      method: "GET",
+      source,
+      cached,
+      reqUrl,
+      reqOpts
+    });
     if (source === SourceType.LIKED) {
       // console.log('liked', response.data)
-      const ids = response.data.map(item => item.id)
-      localStorage.setItem('likes', JSON.stringify(ids))
+      const ids = response.data.map(item => item.id);
+      localStorage.setItem("likes", JSON.stringify(ids));
     }
     yield put({
       type: ActionTypes.GET_ITEMS_SUCCESS,
@@ -62,5 +68,7 @@ export function* getItems(source) {
 }
 
 export default function* root() {
-  yield all([takeLatest(ActionTypes.GET_ITEMS, (action) => getItems(action.payload))]);
+  yield all([
+    takeLatest(ActionTypes.GET_ITEMS, action => getItems(action.payload))
+  ]);
 }

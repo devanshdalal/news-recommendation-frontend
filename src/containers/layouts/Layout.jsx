@@ -3,20 +3,8 @@ import { connect } from "react-redux";
 
 import Header from "./Header";
 import LoadingSpinner from "components/LoadingSpinner";
-import API from "../../utils/API"
-import { SourceType } from "../../redux/constants/ActionTypes";
-import lscache from 'lscache'
 
 class Layout extends React.Component {
-
-  comonentDidMount() {
-    const startup = 'startup'
-    if (!lscache.get(startup)) {
-      const response = API({ method: "GET", source: SourceType.RECOM , cached: false /* cached */, reqUrl : 'vanillalist', reqOpts: "limit=10" })
-      lscache.set(startup, response.data, 30 /*LSCACHE_TIMEOUT mins*/)
-    }
-  }
-
   render() {
     const { loading } = this.props;
     return (
@@ -31,7 +19,7 @@ class Layout extends React.Component {
       </React.Fragment>
     );
   }
-};
+}
 
 const mapStateToProps = state => {
   return {

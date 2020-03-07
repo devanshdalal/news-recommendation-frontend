@@ -26,18 +26,24 @@ class MatchCard extends React.Component {
     event.preventDefault();
     event.stopPropagation();
     this.setState({ liked: !liked });
-    let reqUrl = ""
-    let formData = "" 
+    let reqUrl = "";
+    let formData = "";
     if (!liked) {
       // console.log('Liked........')
-      reqUrl = "like"
-      formData = item
+      reqUrl = "like";
+      formData = item;
     } else {
       // console.log('Disiked........')
-      reqUrl = "dislike"
-      formData = item.id
+      reqUrl = "dislike";
+      formData = item.id;
     }
-    await API({ method: "POST", source: SourceType.LIKED, cached: false, reqUrl,  data: formData})
+    await API({
+      method: "POST",
+      source: SourceType.LIKED,
+      cached: false,
+      reqUrl,
+      data: formData
+    });
     console.log("item", item);
   }
 
@@ -69,7 +75,9 @@ class MatchCard extends React.Component {
                 color={liked ? "success" : "secondary"}
                 className="MatchCard_like"
                 onClick={event => this.likeHandler(event)}
-              >{liked ? "-" : "^"}</Button>
+              >
+                {liked ? "-" : "^"}
+              </Button>
             </div>
             <div className="MatchCard_content">
               <div className="MatchCard_desc">{body}</div>

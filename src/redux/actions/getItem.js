@@ -1,6 +1,6 @@
 import { ActionTypes } from "../constants/ActionTypes";
 
-export const getItems = (sourceType) => {
+export const getItems = sourceType => {
   return {
     type: ActionTypes.GET_ITEMS,
     payload: sourceType
@@ -9,7 +9,7 @@ export const getItems = (sourceType) => {
 
 export const resetStore = () => {
   return {
-    type: ActionTypes.RESET_STORE,
+    type: ActionTypes.RESET_STORE
   };
 };
 
