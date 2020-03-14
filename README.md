@@ -1,3 +1,5 @@
+# news-recomendations-frontend
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -66,3 +68,35 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Endpoints
+
+Its is a simple state based react app. All the components are powered by the reusable component Home which is simply an infinite scroll of news Articles powered by the different underlying APIs. Each news article can be liked by the current logged in user(which will be used in recomendations).
+
+### [Home](https://devanshdalal.github.io/news-recommendation-frontend/#/home)
+
+List all the news headlines given by newsapi.org page by page.
+
+### [Search](https://devanshdalal.github.io/news-recommendation-frontend/#/search)
+
+Lists down the news articles given by newsapi.org with a search term.
+
+### News Recommendations
+
+The news recomendations are powered by a spring webflux reactive server in the backend which has jwt based authorization and authentication and nlp based news article similarity prediction.
+
+#### Login or Signup
+
+Allows user to login or create their account with username and password.
+
+#### Liked Articles
+
+Lists all the news articles liked by the current user.
+
+#### Recommendations
+
+Lists all the recommended news articles based on the liked articles.
+
+#### Signout
+
+Forget the current jwt token.
