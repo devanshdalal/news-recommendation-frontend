@@ -26,7 +26,9 @@ class Header extends React.Component {
     this.state = { query: "", isOpen: false };
   }
 
-  toggle = () => this.setState({ isOpen: !this.isOpen });
+  toggle = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
 
   adocSearch = () => {
     this.props.dispatch(
@@ -59,7 +61,7 @@ class Header extends React.Component {
           <img src={getImage("logo")} alt="logo" width="35" height="35" />
         </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
-        <Collapse isOpen={this.isOpen} navbar>
+        <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="nav-bar">
             <NavItem className="search-bar">
               <InputGroup className="search-bar-content">
@@ -75,7 +77,7 @@ class Header extends React.Component {
                 </InputGroupAddon>
               </InputGroup>
             </NavItem>
-            <div className="nav-flushright">
+            <NavItem className="nav-flushright">
               {isLoggedIn ? (
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle caret nav>
@@ -96,11 +98,11 @@ class Header extends React.Component {
                   </DropdownMenu>
                 </UncontrolledDropdown>
               ) : (
-                <NavItem>
+                <div>
                   <Link to="login"> Login </Link>
-                </NavItem>
+                </div>
               )}
-            </div>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
