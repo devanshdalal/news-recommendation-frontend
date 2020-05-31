@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/news-recommendation-frontend/static/css/main.618c4a21.chunk.css",
-    "main.js": "/news-recommendation-frontend/static/js/main.75b1e05b.chunk.js",
-    "main.js.map": "/news-recommendation-frontend/static/js/main.75b1e05b.chunk.js.map",
+    "main.css": "/news-recommendation-frontend/static/css/main.9ddb394d.chunk.css",
+    "main.js": "/news-recommendation-frontend/static/js/main.d25c4820.chunk.js",
+    "main.js.map": "/news-recommendation-frontend/static/js/main.d25c4820.chunk.js.map",
     "runtime-main.js": "/news-recommendation-frontend/static/js/runtime-main.f1ca0615.js",
     "runtime-main.js.map": "/news-recommendation-frontend/static/js/runtime-main.f1ca0615.js.map",
     "static/css/2.de49db6c.chunk.css": "/news-recommendation-frontend/static/css/2.de49db6c.chunk.css",
     "static/js/2.8d4e39f8.chunk.js": "/news-recommendation-frontend/static/js/2.8d4e39f8.chunk.js",
     "static/js/2.8d4e39f8.chunk.js.map": "/news-recommendation-frontend/static/js/2.8d4e39f8.chunk.js.map",
     "index.html": "/news-recommendation-frontend/index.html",
-    "precache-manifest.9bb3412be609847888843b68363bbe5f.js": "/news-recommendation-frontend/precache-manifest.9bb3412be609847888843b68363bbe5f.js",
+    "precache-manifest.6f1c060f5c2402df8506153a6140c4c2.js": "/news-recommendation-frontend/precache-manifest.6f1c060f5c2402df8506153a6140c4c2.js",
     "service-worker.js": "/news-recommendation-frontend/service-worker.js",
     "static/css/2.de49db6c.chunk.css.map": "/news-recommendation-frontend/static/css/2.de49db6c.chunk.css.map",
-    "static/css/main.618c4a21.chunk.css.map": "/news-recommendation-frontend/static/css/main.618c4a21.chunk.css.map",
+    "static/css/main.9ddb394d.chunk.css.map": "/news-recommendation-frontend/static/css/main.9ddb394d.chunk.css.map",
     "static/js/2.8d4e39f8.chunk.js.LICENSE.txt": "/news-recommendation-frontend/static/js/2.8d4e39f8.chunk.js.LICENSE.txt",
     "static/media/logo.png": "/news-recommendation-frontend/static/media/logo.30793e60.png"
   },
@@ -20,7 +20,7 @@
     "static/js/runtime-main.f1ca0615.js",
     "static/css/2.de49db6c.chunk.css",
     "static/js/2.8d4e39f8.chunk.js",
-    "static/css/main.618c4a21.chunk.css",
-    "static/js/main.75b1e05b.chunk.js"
+    "static/css/main.9ddb394d.chunk.css",
+    "static/js/main.d25c4820.chunk.js"
   ]
 }
