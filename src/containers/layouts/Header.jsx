@@ -11,7 +11,7 @@ import {
   NavbarBrand,
   NavbarToggler,
   Collapse,
-  NavItem
+  NavItem,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -43,11 +43,11 @@ class Header extends React.Component {
     this.props.history.push(`/home`);
   };
 
-  reacordQuery = query => {
+  reacordQuery = (query) => {
     this.setState({ query });
   };
 
-  handleEnter = event => {
+  handleEnter = (event) => {
     if (event.key === "Enter") {
       this.adocSearch();
     }
@@ -58,7 +58,13 @@ class Header extends React.Component {
     return (
       <Navbar light color="light" expand="md">
         <NavbarBrand onClick={() => this.resetHome()}>
-          <img src={getImage("logo")} alt="logo" width="35" height="35" />
+          <img
+            className="Navbar_Logo"
+            src={getImage("logo")}
+            alt="logo"
+            width="35"
+            height="35"
+          />
         </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
@@ -67,7 +73,7 @@ class Header extends React.Component {
               <InputGroup className="search-bar-content">
                 <Input
                   value={this.state.query}
-                  onChange={e => this.reacordQuery(e.target.value)}
+                  onChange={(e) => this.reacordQuery(e.target.value)}
                   onKeyPress={this.handleEnter}
                 />
                 <InputGroupAddon addonType="append">
@@ -109,11 +115,11 @@ class Header extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    filters: state.itemsReducer.filters
+    filters: state.itemsReducer.filters,
   };
 };
 
-const HeaderWithRouter = withRouter(props => <Header {...props} />);
+const HeaderWithRouter = withRouter((props) => <Header {...props} />);
 export default connect(mapStateToProps)(HeaderWithRouter);
