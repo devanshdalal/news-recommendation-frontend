@@ -5,9 +5,7 @@ import { FaSearchMinus } from "react-icons/fa";
 
 import { getItems, resetStore } from "redux/actions/getItem";
 import MatchesList from "components/MatchesList";
-import API from "../utils/API";
-import lscache from "lscache";
-import { SourceType } from "../redux/constants/ActionTypes";
+import LoadingSpinner from "components/LoadingSpinner";
 
 class Home extends React.Component {
   constructor(props) {
@@ -16,20 +14,7 @@ class Home extends React.Component {
     props.dispatch(resetStore({}));
   }
 
-  componentDidMount() {
-    const startup = "startup";
-    if (!lscache.get(startup)) {
-      const response = API({
-        method: "GET",
-        source: SourceType.RECOM,
-        cached: false /* cached */,
-        reqUrl: "vanillalist",
-        reqOpts: "limit=10"
-      }).then(res =>
-        lscache.set(startup, response.data, 30 /*LSCACHE_TIMEOUT mins*/)
-      );
-    }
-  }
+  componentDidMount() {}
 
   loadMore = () => {
     const { dispatch, itemsApiInProgress, type } = this.props;
@@ -38,7 +23,13 @@ class Home extends React.Component {
   };
 
   render() {
-    let { items, itemsApiInError, filters, totalItemCount } = this.props;
+    let {
+      items,
+      itemsApiInError,
+      filters,
+      totalItemCount,
+      itemsApiInProgress,
+    } = this.props;
     let { skip } = filters;
     return (
       <div className="Home">
@@ -53,6 +44,10 @@ class Home extends React.Component {
             >
               {items.length ? (
                 <MatchesList matches={items} />
+              ) : itemsApiInProgress ? (
+                <div className="Home_body_container_ItemsApiInProgress">
+                  <LoadingSpinner />
+                </div>
               ) : (
                 <div className="Home_noResult">
                   <FaSearchMinus size={60} />
@@ -66,7 +61,7 @@ class Home extends React.Component {
     );
   }
 }
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     source: state.itemsReducer.source,
     loading: state.loadingReducer.loadState,
@@ -74,7 +69,7 @@ const mapStateToProps = state => {
     itemsApiInProgress: state.itemsReducer.itemsApiInProgress,
     itemsApiInError: state.itemsReducer.itemsApiInError,
     totalItemCount: state.itemsReducer.totalItemCount,
-    filters: state.itemsReducer.filters
+    filters: state.itemsReducer.filters,
   };
 };
 export default connect(mapStateToProps)(Home);
