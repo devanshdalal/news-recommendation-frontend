@@ -2,6 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Free Dyno
+Since this is deployed on free dyno of heroku. The first API call takes 30-40 seconds to checkout the code \& start the dyno.
+
 ## Available Scripts
 
 In the project directory, you can run:
